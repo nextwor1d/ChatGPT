@@ -30,4 +30,8 @@
 
 ![Preview](assets/0.jpg)
 
+---
+
+If you find this project useful or just want to show your appreciation, you can buy me a coffee to keep me fueled up and motivated to work on more open-source projects like this one !
+
 <a href="https://www.buymeacoffee.com/nextwor1d" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
