@@ -28,7 +28,7 @@
 
 ---
 
-![Preview](assets/0.jpg)
+![Preview](Banner.jpg)
 
 ---
 
