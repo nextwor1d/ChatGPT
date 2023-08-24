@@ -22,6 +22,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     on<SendMessage>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats);
         updatedChats[state.currentChatIndex] = [
           [event.messageText, event.messageTime, event.isQuestion],
@@ -37,9 +38,10 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       }
     });
 
-    on<StreamMessage>((event, emit) async {
+    on<StreamMessage>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats);
         updatedChats[state.currentChatIndex] = [
           [
@@ -47,10 +49,6 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
             updatedChats[state.currentChatIndex][0][1],
             false
           ],
-          /* create a new list containing a portion of the original list,
-          starting from index 1 and continuing to the end of the list.
-          If we don't use .sublist(1) every time the state updates,
-          a new message is add, we want to update the message at index 0. */
           ...updatedChats[state.currentChatIndex].sublist(1),
         ];
 
@@ -67,6 +65,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     on<RemoveMessage>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats);
         final chatMessages = List.from(updatedChats[state.currentChatIndex]);
         chatMessages.removeAt(event.index);
@@ -82,9 +81,10 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     });
 
     // Add New Chat
-    on<AddNewChat>((event, emit) async {
+    on<AddNewChat>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats)..add([]);
 
         emit(MessagesLoadedState(
@@ -97,7 +97,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     });
 
     // Switch Chat
-    on<SwitchChat>((event, emit) async {
+    on<SwitchChat>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
 
@@ -109,12 +109,13 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     });
 
     // Delete Chat
-    on<DeleteChat>((event, emit) async {
+    on<DeleteChat>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats)..removeAt(event.index);
 
-        // for delete last index
+        // Last index
         final updatedCurrentChatIndex =
             state.currentChatIndex >= updatedChats.length
                 ? updatedChats.length - 1
@@ -130,9 +131,10 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     });
 
     // Clear Chat
-    on<ClearChat>((event, emit) async {
+    on<ClearChat>((event, emit) {
       if (state is MessagesLoadedState) {
         final state = this.state as MessagesLoadedState;
+
         final updatedChats = List.from(state.chats);
         updatedChats[state.currentChatIndex] = [];
 
